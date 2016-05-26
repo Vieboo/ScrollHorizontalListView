@@ -20,12 +20,21 @@ public class ListAdapter extends BaseAdapter {
     View headView;
 
     MyHScrollView head_scroll;
+    private int touchPosition = -1; //点击事件标志位
 
     public ListAdapter(Context context, List<String> list, View head) {
         this.mContext = context;
         this.dataList = list;
         this.headView = head;
         head_scroll = (MyHScrollView) headView.findViewById(R.id.head_scroll);
+    }
+    
+    public int getTouchPosition() {
+        return touchPosition;
+    }
+
+    public void setTouchPosition(int touchPosition) {
+        this.touchPosition = touchPosition;
     }
 
     @Override
@@ -56,6 +65,14 @@ public class ListAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
+        
+        convertView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setTouchPosition(position);
+                return false;
+            }
+        });
 
         return convertView;
     }
