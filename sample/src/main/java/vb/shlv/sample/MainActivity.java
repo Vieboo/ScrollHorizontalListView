@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         isClick = true;
                     }
                     if(isClick && adapter.getTouchPosition() >= 0) {
-                        Toast.makeText(HorizontalScrollXListActivity.this, "position--->" + adapter.getTouchPosition(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "position--->" + adapter.getTouchPosition(), Toast.LENGTH_SHORT).show();
                         isClick = false;
                         adapter.setTouchPosition(-1);
                     }
