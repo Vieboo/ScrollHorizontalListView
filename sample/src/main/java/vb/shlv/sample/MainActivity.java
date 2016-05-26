@@ -87,9 +87,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     class ListViewAndHeadViewTouchLinstener implements View.OnTouchListener {
+        
+        float lastX = 0;
+        float lastY = 0;
+        private boolean isClick = false;
 
         @Override
         public boolean onTouch(View arg0, MotionEvent ev) {
+            //判断是否是点击
+            float tempX = ev.getX();
+            float tempY = ev.getY();
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    lastX = tempX;
+                    lastY = tempY;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
+                        isClick = false;
+                    }else {
+                        isClick = true;
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
+                        isClick = false;
+                    }else {
+                        isClick = true;
+                    }
+                    if(isClick && adapter.getTouchPosition() >= 0) {
+                        Toast.makeText(HorizontalScrollXListActivity.this, "position--->" + adapter.getTouchPosition(), Toast.LENGTH_SHORT).show();
+                        isClick = false;
+                        adapter.setTouchPosition(-1);
+                    }
+                    break;
+            }
+            
             // 当在列头 和 listView控件上touch时，将这个touch的事件分发给 ScrollView
             HorizontalScrollView headSrcrollView = (HorizontalScrollView) head.findViewById(R.id.head_scroll);
             headSrcrollView.onTouchEvent(ev);
