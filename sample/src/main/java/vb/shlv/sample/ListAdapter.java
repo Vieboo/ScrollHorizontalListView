@@ -2,6 +2,7 @@ package vb.shlv.sample;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,7 +54,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if(null == convertView) {
             holder = new ViewHolder();
@@ -67,6 +68,7 @@ public class ListAdapter extends BaseAdapter {
         }
         
         convertView.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 setTouchPosition(position);
