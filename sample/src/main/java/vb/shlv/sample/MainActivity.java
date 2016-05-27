@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_MOVE:
                     if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
                         isClick = false;
+                        adapter.setTouchPosition(-1);
                     }else {
                         isClick = true;
                     }
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_UP:
                     if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
                         isClick = false;
+                        adapter.setTouchPosition(-1);
                     }else {
                         isClick = true;
                     }
