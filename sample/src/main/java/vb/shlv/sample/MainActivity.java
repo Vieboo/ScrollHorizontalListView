@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         float lastX = 0;
         float lastY = 0;
         private boolean isClick = false;
+        private long downTime = 0;
 
         @Override
         public boolean onTouch(View arg0, MotionEvent ev) {
@@ -102,23 +103,25 @@ public class MainActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_DOWN:
                     lastX = tempX;
                     lastY = tempY;
+                    downTime = System.currentTimeMillis();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
-                        isClick = false;
-                        adapter.setTouchPosition(-1);
-                    }else {
-                        isClick = true;
-                    }
+                    //if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
+                    //    isClick = false;
+                    //    adapter.setTouchPosition(-1);
+                    //}else {
+                    // isClick = true;
+                    //
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(Math.abs(lastX - tempX) > 2 || Math.abs(lastY - tempY) > 2) {
+                    if(Math.abs(lastX - tempX) > 10 || Math.abs(lastY - tempY) > 10) {
                         isClick = false;
-                        adapter.setTouchPosition(-1);
+                     //   adapter.setTouchPosition(-1);
                     }else {
                         isClick = true;
                     }
-                    if(isClick && adapter.getTouchPosition() >= 0) {
+                    long timeDef = System.currentTimeMillis() - downTime;
+                    if(timeDef <= 100 && isClick && adapter.getTouchPosition() >= 0) {
                         Toast.makeText(MainActivity.this, "position--->" + adapter.getTouchPosition(), Toast.LENGTH_SHORT).show();
                         isClick = false;
                         adapter.setTouchPosition(-1);
